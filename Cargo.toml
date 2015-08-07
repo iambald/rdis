@@ -1,0 +1,4 @@
+[package]
+name = "rdis"
+version = "0.1.0"
+authors = ["Jeff Chen <jchen23@tycho.ncsc.mil>"]
