@@ -34,23 +34,15 @@ impl<'a> Binary for Elf<'a> {
 		self.vendor = vendor;
 	}
 
-	fn get_vendor(&self) -> Vendor {
+	fn vendor(&self) -> Vendor {
 		self.vendor
-	}
-
-	fn set_pc(&mut self, pc: usize) {
-		self.pc = pc
-	}
-
-	fn get_pc(&self) -> usize {
-		self.pc
 	}
 
 	fn set_mode(&mut self, mode: Mode) {
 		self.mode = mode
 	}
 
-	fn get_mode(&self) -> Mode {
+	fn mode(&self) -> Mode {
 		self.mode
 	}
 }

@@ -22,11 +22,8 @@ pub enum Mode {
 
 pub trait Binary : Iterator<Item=u8> {
 	fn set_vendor(&mut self, vendor: Vendor);
-	fn get_vendor(&self) -> Vendor;
-
-	fn set_pc(&mut self, pc: usize);
-	fn get_pc(&self) -> usize;
+	fn vendor(&self) -> Vendor;
 
 	fn set_mode(&mut self, mode: Mode);
-	fn get_mode(&self) -> Mode;
+	fn mode(&self) -> Mode;
 }

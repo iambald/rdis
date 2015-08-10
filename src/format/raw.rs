@@ -4,19 +4,23 @@ use super::Mode;
 
 pub struct Raw<'a> {
 	iterator: Box<Iterator<Item=u8> + 'a>,
-	vendor: Vendor,
-	pc: usize,
-	mode: Mode
+	pub vendor: Vendor,
+	pub mode: Mode,
+	offset: usize	// Current offset (from pc)
 }
 
 impl<'a> Raw<'a> {
-	pub fn new(iterator: Box<Iterator<Item=u8> + 'a>, vendor: Vendor, pc: usize, mode: Mode) -> Raw {
+	pub fn new(iterator: Box<Iterator<Item=u8> + 'a>, vendor: Vendor, mode: Mode) -> Raw {
 		Raw {
 			iterator: iterator,
 			vendor: vendor,
-			pc: pc,
-			mode: mode
+			mode: mode,
+			offset: 0
 		}
+	}
+
+	pub fn offset(&self) -> usize {
+		self.offset
 	}
 }
 
@@ -24,7 +28,13 @@ impl<'a> Iterator for Raw<'a> {
 	type Item = u8;
 
 	fn next(&mut self) -> Option<u8> {
-		self.iterator.next()
+		match self.iterator.next() {
+			None => None,
+			Some(b) => {
+				self.offset += 1;
+				Some(b)
+			}			
+		}
 	}
 }
 
@@ -34,23 +44,15 @@ impl<'a> Binary for Raw<'a> {
 		self.vendor = vendor;
 	}
 
-	fn get_vendor(&self) -> Vendor {
+	fn vendor(&self) -> Vendor {
 		self.vendor
-	}
-
-	fn set_pc(&mut self, pc: usize) {
-		self.pc = pc
-	}
-
-	fn get_pc(&self) -> usize {
-		self.pc
 	}
 
 	fn set_mode(&mut self, mode: Mode) {
 		self.mode = mode
 	}
 
-	fn get_mode(&self) -> Mode {
+	fn mode(&self) -> Mode {
 		self.mode
 	}
 }

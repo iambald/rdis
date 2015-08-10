@@ -1,10 +1,15 @@
 mod rdis;
+mod operand;
+mod instruction;
 mod format;
 
 use format::Binary;
 use format::Vendor;
 use format::Raw;
 use format::Mode;
+use rdis::Rdis;
+use operand::Operand;
+use instruction::Instruction;
 
 #[test]
 fn it_works() {
